@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+    <title>
+      Block Data :: Stacks Stats
+    </title>
+    
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Block Data " />
+<meta name="keywords" content="" />
+
+  <meta name="robots" content="noodp" />
+
+<link rel="canonical" href="/stacks-stats/block/" />
+
+
+
+
+
+
+  
+  
+  
+  
+  
+  <link rel="stylesheet" href="/stacks-stats/styles.css">
+
+
+
+
+
+
+
+  <link rel="shortcut icon" href="/stacks-stats/img/theme-colors/blurple.png">
+  <link rel="apple-touch-icon" href="/stacks-stats/img/theme-colors/blurple.png">
+
+
+
+<meta name="twitter:card" content="summary" />
+
+  
+    <meta name="twitter:site" content="" />
+  
+    <meta name="twitter:creator" content="" />
+
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Block Data">
+<meta property="og:description" content="Block Data " />
+<meta property="og:url" content="/stacks-stats/block/" />
+<meta property="og:site_name" content="Stacks Stats" />
+
+  
+    <meta property="og:image" content="/stacks-stats/img/favicon/blurple.png">
+  
+
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="627">
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="/stacks-stats/css/styles.css" />
+  <script src="/stacks-stats/js/block.js"></script>
+</head>
+<body class="blurple">
+
+
+<div class="container center headings--one-size">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/stacks-stats/">
+  <div class="logo">
+    Stacks Stats
+  </div>
+</a>
+
+    </div>
+    
+    
+  </div>
+  
+</header>
+
+
+  <div class="content">
+    
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+    <title>
+      Block Data :: Stacks Stats
+    </title>
+     <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Block Data " />
+<meta name="keywords" content="" />
+
+  <meta name="robots" content="noodp" />
+
+<link rel="canonical" href="/stacks-stats/block/" />
+
+
+
+
+
+
+  
+  
+  
+  
+  
+  <link rel="stylesheet" href="/stacks-stats/styles.css">
+
+
+
+
+
+
+
+  <link rel="shortcut icon" href="/stacks-stats/img/theme-colors/blurple.png">
+  <link rel="apple-touch-icon" href="/stacks-stats/img/theme-colors/blurple.png">
+
+
+
+<meta name="twitter:card" content="summary" />
+
+  
+    <meta name="twitter:site" content="" />
+  
+    <meta name="twitter:creator" content="" />
+
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Block Data">
+<meta property="og:description" content="Block Data " />
+<meta property="og:url" content="/stacks-stats/block/" />
+<meta property="og:site_name" content="Stacks Stats" />
+
+  
+    <meta property="og:image" content="/stacks-stats/img/favicon/blurple.png">
+  
+
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="627">
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <link rel="stylesheet" href="/stacks-stats/css/styles.css" />
+    <script src="https://unpkg.com/dayjs@1.10.4/dayjs.min.js"></script>
+    <script src="https://unpkg.com/dayjs@1.10.4/plugin/relativeTime.js"></script>
+    <script src="/stacks-stats/js/block.js" defer></script>
+
+    <script type="text/javascript">
+      dayjs.extend(window.dayjs_plugin_relativeTime); 
+    </script>
+  </head>
+  <body>
+    <div id="loading-indicator" class="loading-hidden">Loading...</div>
+    <form id="search-form">
+      <input
+        type="number"
+        id="search-input"
+        placeholder="Enter block height"
+        required
+      />
+      <button type="submit">Search</button>
+      <button type="button" id="tip-button">Tip</button>
+    </form>
+    <div class="block-header">
+      <div class="stacks-logo">
+        <svg viewBox="0 0 22 22" class="icon">
+          <path
+            d="M4.18817 0.940674L9.37024 8.99389M9.37024 8.99389H0.266602M9.37024 8.99389H12.7316"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linejoin="bevel"
+          ></path>
+          <path
+            d="M17.9129 0.940674L12.7308 8.99389H21.8345"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linejoin="bevel"
+          ></path>
+          <path
+            d="M4.18817 21.4407L9.37024 13.3875M9.37024 13.3875H0.266602M9.37024 13.3875H12.7316"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linejoin="bevel"
+          ></path>
+          <path
+            d="M17.9129 21.4407L12.7308 13.3875H21.8345"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linejoin="bevel"
+          ></path>
+        </svg>
+      </div>
+      <a
+        id="stacksExplorerLink"
+        href="https://explorer.hiro.so/block/0x0?chain=mainnet"
+      >
+        <span id="stacksBlockHeight" class="block-number"> 0 </span>
+      </a>
+      <span class="arrow">&rarr;</span>
+      <svg
+        viewBox="0.004 0 64 64"
+        xmlns="http://www.w3.org/2000/svg"
+        class="icon"
+      >
+        <path
+          d="M63.04 39.741c-4.274 17.143-21.638 27.575-38.783 23.301C7.12 58.768-3.313 41.404.962 24.262 5.234 7.117 22.597-3.317 39.737.957c17.144 4.274 27.576 21.64 23.302 38.784z"
+          fill="#f7931a"
+        />
+        <path
+          d="M46.11 27.441c.636-4.258-2.606-6.547-7.039-8.074l1.438-5.768-3.512-.875-1.4 5.616c-.922-.23-1.87-.447-2.812-.662l1.41-5.653-3.509-.875-1.439 5.766c-.764-.174-1.514-.346-2.242-.527l.004-.018-4.842-1.209-.934 3.75s2.605.597 2.55.634c1.422.355 1.68 1.296 1.636 2.042l-1.638 6.571c.098.025.225.061.365.117l-.37-.092-2.297 9.205c-.174.432-.615 1.08-1.609.834.035.051-2.552-.637-2.552-.637l-1.743 4.02 4.57 1.139c.85.213 1.683.436 2.502.646l-1.453 5.835 3.507.875 1.44-5.772c.957.26 1.887.5 2.797.726L27.504 50.8l3.511.875 1.453-5.823c5.987 1.133 10.49.676 12.383-4.738 1.527-4.36-.075-6.875-3.225-8.516 2.294-.531 4.022-2.04 4.483-5.157zM38.087 38.69c-1.086 4.36-8.426 2.004-10.807 1.412l1.928-7.729c2.38.594 10.011 1.77 8.88 6.317zm1.085-11.312c-.99 3.966-7.1 1.951-9.083 1.457l1.748-7.01c1.983.494 8.367 1.416 7.335 5.553z"
+          fill="#ffffff"
+        />
+      </svg>
+      <a id="bitcoinExplorerLink" href="https://mempool.space/block/0">
+        <span id="bitcoinBlockHeight" class="btc-block-number">0</span>
+      </a>
+    </div>
+    <div class="block-time">
+      <span id="blockTime">&infin; ago</span>
+    </div>
+
+    <ul>
+      <li>Transaction Count: <span id="transactionCount">0</span></li>
+      <li>Total Fees: <span id="totalFees">0</span> STX</li>
+      <li>
+        Average Fee Rate: <span id="averageFeeRate">0</span> uSTX / % of block
+      </li>
+    </ul>
+    <h2>Block Fullness</h2>
+    <div class="cost-info">
+      <div class="bar-container">
+        <div id="readCountBar" class="bar" style="width: 0%"></div>
+      </div>
+      <div class="bar-label">Read Count: <span id="readCount">0</span>%</div>
+
+      <div class="bar-container">
+        <div id="readLengthBar" class="bar" style="width: 0%"></div>
+      </div>
+      <div class="bar-label">Read Length: <span id="readLength">0</span>%</div>
+
+      <div class="bar-container">
+        <div id="writeCountBar" class="bar" style="width: 0%"></div>
+      </div>
+      <div class="bar-label">Write Count: <span id="writeCount">0</span>%</div>
+
+      <div class="bar-container">
+        <div id="writeLengthBar" class="bar" style="width: 0%"></div>
+      </div>
+      <div class="bar-label">
+        Write Length: <span id="writeLength">0</span>%
+      </div>
+
+      <div class="bar-container">
+        <div id="runtimeBar" class="bar" style="width: 0%"></div>
+      </div>
+      <div class="bar-label">Runtime: <span id="runtime">0</span>%</div>
+    </div>
+    <div id="block-nav">
+      <a id="prev-block" href="#">Previous Block</a>
+      <a id="next-block" href="#">Next Block</a>
+    </div>
+    <script type="text/javascript">
+      const loadingIndicator = document.getElementById("loading-indicator");
+
+      document.addEventListener("DOMContentLoaded", async () => {
+        
+        const urlParams = new URLSearchParams(window.location.search);
+        const blockHeight = urlParams.get("height");
+
+        
+        loadingIndicator.classList.remove("loading-hidden");
+        loadingIndicator.classList.add("loading-visible");
+
+        const data = await fetchData(blockHeight);
+        displayData(data);
+
+        
+        loadingIndicator.classList.remove("loading-visible");
+        loadingIndicator.classList.add("loading-hidden");
+      });
+
+      
+      document
+        .getElementById("search-form")
+        .addEventListener("submit", function (event) {
+          event.preventDefault();
+          const blockHeight = document.getElementById("search-input").value;
+          window.location.href = `/stacks-stats/block/?height=${blockHeight}`;
+        });
+
+      document
+        .getElementById("tip-button")
+        .addEventListener("click", function () {
+          window.location.href = "/stacks-stats/block/";
+        });
+    </script>
+  </body>
+</html>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright">
+        <span>© 2023 Powered by <a href="https://gohugo.io">Hugo</a></span>
+    
+      <span>:: <a href="https://github.com/panr/hugo-theme-terminal" target="_blank">Theme</a> made by <a href="https://github.com/panr" target="_blank">panr</a></span>
+      </div>
+  </div>
+</footer>
+
+
+
+
+
+
+<script type="text/javascript" src="/stacks-stats/bundle.min.js"></script>
+
+
+
+
+
+  
+</div>
+
+</body>
+</html>

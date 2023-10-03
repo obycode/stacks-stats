@@ -1,0 +1,166 @@
+.content {
+  margin-top: 20px;
+}
+
+.block-info,
+.fee-info,
+.cost-info {
+  border: 1px solid #ddd;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+
+.block-info h2,
+.fee-info h2,
+.execution-info h2 {
+  margin-top: 0;
+}
+
+.block-header {
+  display: flex;
+  align-items: center;
+  font-size: 24px;
+  margin-bottom: 0px;
+  margin-top: 32px;
+}
+
+.icon {
+  width: 24px;
+  height: 24px;
+  margin-right: 10px;
+}
+
+.arrow {
+  margin: 0 10px;
+}
+
+.block-number,
+.btc-block-number {
+  font-weight: bold;
+  margin-right: 10px;
+  text-decoration: none;
+}
+
+.block-time {
+  margin-top: 0px;
+  color: #747478;
+  margin-bottom: 20px;
+}
+
+.stacks-logo {
+  display: grid;
+  width: 24px;
+  height: 24px;
+  min-width: 18px;
+  min-height: 18px;
+  align-items: center;
+  justify-items: center;
+  background-color: rgb(85, 70, 255);
+  position: relative;
+  margin-right: 3px;
+  border-top-left-radius: 18px;
+  border-top-right-radius: 18px;
+  border-bottom-right-radius: 18px;
+  border-bottom-left-radius: 18px;
+}
+
+.stacks-logo svg {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 11px;
+  height: auto;
+  min-width: 11px;
+  min-height: 11px;
+  display: block;
+  fill: none;
+  color: #ffffff;
+}
+
+.bar-container {
+  background-color: #e0e0e0;
+  border-radius: 4px;
+  height: 24px;
+  margin-bottom: 10px;
+}
+
+.bar {
+  background-color: #7F97F1;
+  height: 100%;
+  border-radius: 4px;
+}
+
+.bar-label {
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+#search-form {
+  display: flex;
+}
+#search-form button,
+#search-form input {
+  margin-right: 10px; /* Optional: add some spacing between the elements */
+}
+
+#block-nav {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+#block-nav a {
+  padding: 10px 20px;
+  text-decoration: none;
+  color: #fff;
+  background-color: #999CA3;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+#block-nav a:hover {
+  background-color: #7F97F1;
+}
+
+.loading-hidden {
+  display: none;
+}
+
+.loading-visible {
+  display: block;
+  text-align: center;
+  padding: 20px;
+  font-size: 20px;
+}
+
+/* Optional: Style for a more visual loading indicator, e.g., a spinning wheel */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loading-visible::after {
+  content: "";
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  margin-left: 10px;
+  border: 3px solid #007BFF;
+  border-top: 3px solid transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+button {
+  background-color: #CEDAFA;
+  border: 1px solid #CEDAFA;
+}
+
+button:hover {
+  background-color: #B8D4F3;
+}
+
+input {
+  color: #CEDAFA;
+}

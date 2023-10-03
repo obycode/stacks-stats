@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Stacks Stats</title>
+    <link>/stacks-stats/</link>
+    <description>Recent content on Stacks Stats</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language><atom:link href="/stacks-stats/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Block Data</title>
+      <link>/stacks-stats/block/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/stacks-stats/block/</guid>
+      <description>Block Data </description>
+      <content>&lt;h1 id=&#34;block-data&#34;&gt;Block Data&lt;/h1&gt;
+</content>
+    </item>
+    
+  </channel>
+</rss>
