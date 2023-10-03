@@ -85,3 +85,13 @@ publishDir = "docs"
     [languages.en.params.logo]
       logoText = "Stacks Stats"
       logoHomeLink = "/stacks-stats/"
+
+    [languages.en.menu]
+      [[languages.en.menu.main]]
+        identifier = "block"
+        name = "Blocks"
+        url = "/block"
+      [[languages.en.menu.main]]
+        identifier = "tx"
+        name = "Transactions"
+        url = "/tx"

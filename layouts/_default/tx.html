@@ -1,0 +1,85 @@
+{{ define "main" }}
+<!DOCTYPE html>
+<html lang="{{ $.Site.Language }}">
+  <head>
+    {{ block "title" . }}
+    <title>
+      {{ if .IsHome }}{{ $.Site.Title }}{{ else }}{{ .Title }} :: {{
+      $.Site.Title }}{{ end }}
+    </title>
+    {{ end }} {{ partial "head.html" . }}
+    <link rel="stylesheet" href="/stacks-stats/css/styles.css" />
+    <script src="https://unpkg.com/dayjs@1.10.4/dayjs.min.js"></script>
+    <script src="https://unpkg.com/dayjs@1.10.4/plugin/relativeTime.js"></script>
+    <script src="/stacks-stats/js/tx.js" defer></script>
+
+    <script type="text/javascript">
+      dayjs.extend(window.dayjs_plugin_relativeTime); // Enable the relativeTime plugin
+    </script>
+  </head>
+  <body>
+    <div id="loading-indicator" class="loading-hidden">Loading...</div>
+    <div class="title">
+      <div class="block-header"></div>
+      <form id="search-form">
+        <input
+          type="text"
+          id="search-input"
+          placeholder="Enter txid"
+          required
+        />
+        <a href="#" id="tip-button" title="Go to latest block">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="32"
+            height="32"
+            viewBox="0 0 512 512"
+          >
+            <!--! Font Awesome Pro 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+            <path
+              d="M18.4 445c11.2 5.3 24.5 3.6 34.1-4.4L224 297.7V416c0 12.4 7.2 23.7 18.4 29s24.5 3.6 34.1-4.4L448 297.7V416c0 17.7 14.3 32 32 32s32-14.3 32-32V96c0-17.7-14.3-32-32-32s-32 14.3-32 32V214.3L276.5 71.4c-9.5-7.9-22.8-9.7-34.1-4.4S224 83.6 224 96V214.3L52.5 71.4c-9.5-7.9-22.8-9.7-34.1-4.4S0 83.6 0 96V416c0 12.4 7.2 23.7 18.4 29z"
+            />
+          </svg>
+        </a>
+      </form>
+    </div>
+    <p>Coming Soon...</p>
+
+    <script type="text/javascript">
+      const loadingIndicator = document.getElementById("loading-indicator");
+
+      document.addEventListener("DOMContentLoaded", async () => {
+        // Get the txid from the query parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const txid = urlParams.get("id");
+
+        // Show loading indicator
+        loadingIndicator.classList.remove("loading-hidden");
+        loadingIndicator.classList.add("loading-visible");
+
+        const data = await fetchData(txid);
+        displayData(data);
+
+        // Hide loading indicator once data has been fetched
+        loadingIndicator.classList.remove("loading-visible");
+        loadingIndicator.classList.add("loading-hidden");
+      });
+
+      // Handle form submission
+      document
+        .getElementById("search-form")
+        .addEventListener("submit", function (event) {
+          event.preventDefault();
+          const txid = document.getElementById("search-input").value;
+          window.location.href = `/stacks-stats/tx/?id=${txid}`;
+        });
+
+      document
+        .getElementById("latest-button")
+        .addEventListener("click", function () {
+          window.location.href = "/stacks-stats/tx/";
+        });
+    </script>
+  </body>
+</html>
+{{ end }}

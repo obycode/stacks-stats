@@ -6,7 +6,6 @@
   {{ end }}
   {{ partial "head.html" . }}
   <link rel="stylesheet" href="/stacks-stats/css/styles.css" />
-  <script src="/stacks-stats/js/block.js"></script>
 </head>
 <body class="{{- ( or .Params.color $.Site.Params.ThemeColor ) -}}">
 {{ $container := cond ($.Site.Params.FullWidthTheme | default false) "container full" (cond ($.Site.Params.CenterTheme | default false) "container center" "container") }}
