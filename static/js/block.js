@@ -87,7 +87,7 @@ const getTotalFees = async (transactions) => {
 // that it confirms, but those should actually count towards the budget of the
 // previous block. This function will calculate the total costs of the current
 // block, and also the total from the microblocks it confirms.
-const getTotalCosts = async (transactions) => {
+const getTotalCosts = (transactions) => {
   let blockTxs = 0;
   let blockCosts = {
     read_count: 0,
@@ -131,7 +131,7 @@ const fetchData = async (blockHeight) => {
   const transactions = await getAllTransactions(blockHeight);
 
   const { blockTxs, blockCosts, microblockTxs, microblockCosts } =
-    await getTotalCosts(transactions);
+    getTotalCosts(transactions);
 
   const blockPercentages = {};
   Object.keys(blockCosts).forEach((key) => {

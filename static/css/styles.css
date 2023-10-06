@@ -37,6 +37,11 @@
   margin-top: 0px;
 }
 
+.flex {
+  display: flex;
+  align-items: center;
+}
+
 .icon {
   width: 24px;
   height: 24px;
@@ -193,4 +198,28 @@ input {
 
 .fa-fast-forward {
   color: #7f97f1;
+}
+
+.error {
+  display: none;
+  padding-left: 20px;
+  color: #ff0000;
+  font-style: italic;
+  font-size: 80%;
+}
+
+.warning {
+  display: none;
+  padding-left: 20px;
+  color: #ffa500;
+  font-style: italic;
+  font-size: 80%;
+}
+
+.info {
+  display: none;
+  padding-left: 20px;
+  color: #747478;
+  font-style: italic;
+  font-size: 80%;
 }

@@ -16,11 +16,20 @@
     <script type="text/javascript">
       dayjs.extend(window.dayjs_plugin_relativeTime); // Enable the relativeTime plugin
     </script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
   </head>
   <body>
     <div id="loading-indicator" class="loading-hidden">Loading...</div>
     <div class="title">
-      <div class="block-header"></div>
+      <div class="block-header">
+        <div id="txid">0x0</div>
+        &nbsp;<a id="explorer-link" href="https://explorer.hiro.so/txid/">
+          <i class="fa fa-external-link" aria-hidden="true"></i>
+        </a>
+      </div>
       <form id="search-form">
         <input
           type="text"
@@ -28,22 +37,72 @@
           placeholder="Enter txid"
           required
         />
-        <a href="/stacks-stats/tx/" id="tip-button" title="Go to latest block">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="32"
-            height="32"
-            viewBox="0 0 512 512"
-          >
-            <!--! Font Awesome Pro 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
-            <path
-              d="M18.4 445c11.2 5.3 24.5 3.6 34.1-4.4L224 297.7V416c0 12.4 7.2 23.7 18.4 29s24.5 3.6 34.1-4.4L448 297.7V416c0 17.7 14.3 32 32 32s32-14.3 32-32V96c0-17.7-14.3-32-32-32s-32 14.3-32 32V214.3L276.5 71.4c-9.5-7.9-22.8-9.7-34.1-4.4S224 83.6 224 96V214.3L52.5 71.4c-9.5-7.9-22.8-9.7-34.1-4.4S0 83.6 0 96V416c0 12.4 7.2 23.7 18.4 29z"
-            />
-          </svg>
+        <a
+          href="/stacks-stats/tx/"
+          id="latest-button"
+          title="Go to latest block"
+        >
+          <i class="fa fa-fast-forward fa-lg"></i>
         </a>
       </form>
     </div>
-    <p>Coming Soon...</p>
+    <div class="block-time">
+      <span id="blockTime">&infin; ago</span>
+    </div>
+    <ul>
+      <li>
+        <div class="flex">
+          Block:
+          <div class="stacks-logo">
+            <svg viewBox="0 0 22 22" class="icon">
+              <path
+                d="M4.18817 0.940674L9.37024 8.99389M9.37024 8.99389H0.266602M9.37024 8.99389H12.7316"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linejoin="bevel"
+              ></path>
+              <path
+                d="M17.9129 0.940674L12.7308 8.99389H21.8345"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linejoin="bevel"
+              ></path>
+              <path
+                d="M4.18817 21.4407L9.37024 13.3875M9.37024 13.3875H0.266602M9.37024 13.3875H12.7316"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linejoin="bevel"
+              ></path>
+              <path
+                d="M17.9129 21.4407L12.7308 13.3875H21.8345"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linejoin="bevel"
+              ></path>
+            </svg>
+          </div>
+          <a id="block"></a>
+        </div>
+      </li>
+      <li>Sender: <span id="sender"></span></li>
+      <li>
+        <div class="flex">
+          Nonce: <span id="nonce"></span>
+          <div id="nonce-error" class="error">
+            <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+            Error: <span id="nonce-error-text"></span>
+          </div>
+          <div id="nonce-warning" class="warning">
+            <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+            Warning: <span id="nonce-warning-text"></span>
+          </div>
+          <div id="nonce-info" class="info">
+            <i class="fa fa-info-circle" aria-hidden="true"></i>
+            Info: <span id="nonce-info-text"></span>
+          </div>
+        </div>
+      </li>
+    </ul>
 
     <script type="text/javascript">
       const loadingIndicator = document.getElementById("loading-indicator");
@@ -58,7 +117,7 @@
         loadingIndicator.classList.add("loading-visible");
 
         const data = await fetchData(txid);
-        displayData(data);
+        await displayData(data);
 
         // Hide loading indicator once data has been fetched
         loadingIndicator.classList.remove("loading-visible");
