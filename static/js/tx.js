@@ -98,14 +98,19 @@ const displayNonceInfo = async (data) => {
     !data.burn_block_time &&
     sender_nonces.detected_mempool_nonces.length > 0
   ) {
-    let waitingForNonces = `Waiting for ${
-      sender_nonces.last_executed_tx_nonce + 1
-    }`;
-    if (sender_nonces.last_executed_tx_nonce + 1 < data.nonce - 1) {
-      waitingForNonces += `...${data.nonce - 1}`;
-    }
+    let waitingForNonces = "";
+    if (sender_nonces.last_executed_tx_nonce + 1 === data.nonce) {
+      hideNonceDialogs();
+    } else {
+      waitingForNonces = `Waiting for ${
+        sender_nonces.last_executed_tx_nonce + 1
+      }`;
+      if (sender_nonces.last_executed_tx_nonce + 1 < data.nonce - 1) {
+        waitingForNonces += `...${data.nonce - 1}`;
+      }
 
-    showNonceDialog("info", waitingForNonces);
+      showNonceDialog("info", waitingForNonces);
+    }
   } else {
     hideNonceDialogs();
   }
