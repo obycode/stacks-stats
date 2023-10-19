@@ -90,7 +90,7 @@ const displayNonceInfo = async (data) => {
   ) {
     showNonceDialog(
       "warning",
-      `Missing nonces detected: ${sender_nonces.detected_missing_nonces.join(
+      `Missing nonces detected: ${sender_nonces.detected_missing_nonces.sort().join(
         ", "
       )}`
     );
