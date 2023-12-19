@@ -4,6 +4,7 @@ const blockLimits = {
   runtime: 5000000000,
   write_count: 15000,
   write_length: 15000000,
+  len: 2 * 1024 * 1024,
 };
 
 const setBlockTime = (timestamp, blockTimeElement) => {
@@ -83,11 +84,22 @@ const getTotalFees = async (transactions) => {
   return totalFees;
 };
 
+const getBlockLen = async (block) => {
+  const index_block_hash = block.index_block_hash.substring(2);
+  const url = `https://api.mainnet.hiro.so/v2/blocks/${index_block_hash}`;
+  const response = await fetch(url);
+  if (!response.ok) {
+    throw new Error(`Failed to retrieve block: ${response.statusText}`);
+  }
+  let blob = await response.blob();
+  return blob.size;
+};
+
 // The total costs reported for the block include the costs of the microblocks
 // that it confirms, but those should actually count towards the budget of the
 // previous block. This function will calculate the total costs of the current
 // block, and also the total from the microblocks it confirms.
-const getTotalCosts = (transactions) => {
+const getTotalCosts = async (block, transactions) => {
   let blockTxs = 0;
   let blockCosts = {
     read_count: 0,
@@ -95,6 +107,7 @@ const getTotalCosts = (transactions) => {
     runtime: 0,
     write_count: 0,
     write_length: 0,
+    len: 0,
   };
   let microblockTxs = 0;
   let microblockCosts = {
@@ -103,23 +116,37 @@ const getTotalCosts = (transactions) => {
     runtime: 0,
     write_count: 0,
     write_length: 0,
+    len: 0,
   };
-  for (const transaction of transactions) {
-    // This tx is in the anchor block
-    if (transaction.microblock_hash === "0x") {
-      blockTxs++;
-      const costs = getCosts(transaction);
-      Object.keys(costs).forEach((key) => {
-        blockCosts[key] += costs[key];
-      });
-    } else {
-      microblockTxs++;
-      const costs = getCosts(transaction);
-      Object.keys(costs).forEach((key) => {
-        microblockCosts[key] += costs[key];
-      });
+
+  if (block.microblocks_accepted.length == 0) {
+    blockCosts = getCosts(block);
+  } else {
+    // When microblocks are confirmed, we need special handling because the API
+    // incorrectly includes the costs of the microblock transactions with the
+    // costs of the block that confirms them. Those costs actually count towards
+    // the budget of the previous block.
+    for (const transaction of transactions) {
+      // This tx is in the anchor block
+      if (transaction.microblock_hash === "0x") {
+        blockTxs++;
+        const costs = getCosts(transaction);
+        Object.keys(costs).forEach((key) => {
+          blockCosts[key] += costs[key];
+        });
+      } else {
+        microblockTxs++;
+        const costs = getCosts(transaction);
+        Object.keys(costs).forEach((key) => {
+          microblockCosts[key] += costs[key];
+        });
+      }
     }
   }
+
+  // Retrieve the tx_len of the block
+  blockCosts["len"] = await getBlockLen(block);
+
   return { blockTxs, blockCosts, microblockTxs, microblockCosts };
 };
 
@@ -131,7 +158,7 @@ const fetchData = async (blockHeight) => {
   const transactions = await getAllTransactions(blockHeight);
 
   const { blockTxs, blockCosts, microblockTxs, microblockCosts } =
-    getTotalCosts(transactions);
+    await getTotalCosts(block, transactions);
 
   const blockPercentages = {};
   Object.keys(blockCosts).forEach((key) => {
@@ -211,6 +238,11 @@ const displayData = (data) => {
   document.getElementById(
     "runtimeBar"
   ).style.width = `${data.blockPercentages.runtime}%`;
+  document.getElementById("blockLen").innerText =
+    data.blockPercentages.len.toFixed(2);
+  document.getElementById(
+    "lenBar"
+  ).style.width = `${data.blockPercentages.len}%`;
 
   // Microblock Costs
   document.getElementById("ublockReadCount").innerText =
