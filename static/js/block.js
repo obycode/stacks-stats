@@ -50,30 +50,36 @@ const getTipHeight = async () => {
   return data.stacks_tip_height;
 };
 
-const getAllTransactions = async (blockHeight) => {
-  const url = `https://api.mainnet.hiro.so/extended/v1/tx/block_height/${blockHeight}`;
-  const limit = 20; // This can be adjusted based on your needs
-  let offset = 0;
-  let allTransactions = [];
+const getAllTransactions = async (block) => {
+  if (block.microblocks_accepted.length == 0) {
+    // We only need to retrieve all transactions if there are microblocks.
+    // Otherwise, we can just use the information in the block.
+    return [];
+  } else {
+    const url = `https://api.mainnet.hiro.so/extended/v1/tx/block_height/${block.height}`;
+    const limit = 20; // This can be adjusted based on your needs
+    let offset = 0;
+    let allTransactions = [];
 
-  while (true) {
-    const response = await fetch(`${url}?offset=${offset}&limit=${limit}`);
-    if (!response.ok) {
-      throw new Error(`Failed to retrieve data: ${response.statusText}`);
+    while (true) {
+      const response = await fetch(`${url}?offset=${offset}&limit=${limit}`);
+      if (!response.ok) {
+        throw new Error(`Failed to retrieve data: ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      allTransactions = allTransactions.concat(data.results);
+
+      // Check if there are more pages
+      if (offset + limit < data.total) {
+        offset += limit;
+      } else {
+        break;
+      }
     }
 
-    const data = await response.json();
-    allTransactions = allTransactions.concat(data.results);
-
-    // Check if there are more pages
-    if (offset + limit < data.total) {
-      offset += limit;
-    } else {
-      break;
-    }
+    return allTransactions;
   }
-
-  return allTransactions;
 };
 
 const getTotalFees = async (transactions) => {
@@ -155,7 +161,7 @@ const fetchData = async (blockHeight) => {
     blockHeight = await getTipHeight();
   }
   const block = await getBlock(blockHeight);
-  const transactions = await getAllTransactions(blockHeight);
+  const transactions = await getAllTransactions(block);
 
   const { blockTxs, blockCosts, microblockTxs, microblockCosts } =
     await getTotalCosts(block, transactions);
