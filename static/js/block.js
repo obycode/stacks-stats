@@ -51,35 +51,29 @@ const getTipHeight = async () => {
 };
 
 const getAllTransactions = async (block) => {
-  if (block.microblocks_accepted.length == 0) {
-    // We only need to retrieve all transactions if there are microblocks.
-    // Otherwise, we can just use the information in the block.
-    return [];
-  } else {
-    const url = `https://api.mainnet.hiro.so/extended/v1/tx/block_height/${block.height}`;
-    const limit = 20; // This can be adjusted based on your needs
-    let offset = 0;
-    let allTransactions = [];
+  const url = `https://api.mainnet.hiro.so/extended/v1/tx/block_height/${block.height}`;
+  const limit = 20; // This can be adjusted based on your needs
+  let offset = 0;
+  let allTransactions = [];
 
-    while (true) {
-      const response = await fetch(`${url}?offset=${offset}&limit=${limit}`);
-      if (!response.ok) {
-        throw new Error(`Failed to retrieve data: ${response.statusText}`);
-      }
-
-      const data = await response.json();
-      allTransactions = allTransactions.concat(data.results);
-
-      // Check if there are more pages
-      if (offset + limit < data.total) {
-        offset += limit;
-      } else {
-        break;
-      }
+  while (true) {
+    const response = await fetch(`${url}?offset=${offset}&limit=${limit}`);
+    if (!response.ok) {
+      throw new Error(`Failed to retrieve data: ${response.statusText}`);
     }
 
-    return allTransactions;
+    const data = await response.json();
+    allTransactions = allTransactions.concat(data.results);
+
+    // Check if there are more pages
+    if (offset + limit < data.total) {
+      offset += limit;
+    } else {
+      break;
+    }
   }
+
+  return allTransactions;
 };
 
 const getTotalFees = async (transactions) => {
@@ -125,28 +119,24 @@ const getTotalCosts = async (block, transactions) => {
     len: 0,
   };
 
-  if (block.microblocks_accepted.length == 0) {
-    blockCosts = getCosts(block);
-  } else {
-    // When microblocks are confirmed, we need special handling because the API
-    // incorrectly includes the costs of the microblock transactions with the
-    // costs of the block that confirms them. Those costs actually count towards
-    // the budget of the previous block.
-    for (const transaction of transactions) {
-      // This tx is in the anchor block
-      if (transaction.microblock_hash === "0x") {
-        blockTxs++;
-        const costs = getCosts(transaction);
-        Object.keys(costs).forEach((key) => {
-          blockCosts[key] += costs[key];
-        });
-      } else {
-        microblockTxs++;
-        const costs = getCosts(transaction);
-        Object.keys(costs).forEach((key) => {
-          microblockCosts[key] += costs[key];
-        });
-      }
+  // When microblocks are confirmed, we need special handling because the API
+  // incorrectly includes the costs of the microblock transactions with the
+  // costs of the block that confirms them. Those costs actually count towards
+  // the budget of the previous block.
+  for (const transaction of transactions) {
+    // This tx is in the anchor block
+    if (transaction.microblock_hash === "0x") {
+      blockTxs++;
+      const costs = getCosts(transaction);
+      Object.keys(costs).forEach((key) => {
+        blockCosts[key] += costs[key];
+      });
+    } else {
+      microblockTxs++;
+      const costs = getCosts(transaction);
+      Object.keys(costs).forEach((key) => {
+        microblockCosts[key] += costs[key];
+      });
     }
   }
 
