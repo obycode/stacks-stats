@@ -86,7 +86,7 @@ const getTotalFees = async (transactions) => {
 
 const getBlockLen = async (block) => {
   const index_block_hash = block.index_block_hash.substring(2);
-  const url = `https://api.mainnet.hiro.so/v2/blocks/${index_block_hash}`;
+  const url = `https://api.mainnet.hiro.so/v3/blocks/${index_block_hash}`;
   const response = await fetch(url);
   if (!response.ok) {
     throw new Error(`Failed to retrieve block: ${response.statusText}`);
